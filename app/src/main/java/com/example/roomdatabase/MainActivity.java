@@ -32,13 +32,14 @@ public class MainActivity extends AppCompatActivity {
 
         users = new ArrayList<>();
 
+        // Add 100 strings into recycler list
         for(int i = 0; i < 100; i++) {
             users.add("Android #" + i);
         }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);  // improve performance
-        adapter = new RecyclerViewAdapter(users);
+        adapter = new RecyclerViewAdapter(users);  // pass ArrayList into RecyclerViewAdapter class
         recyclerView.setAdapter(adapter);
 
         fab = findViewById(R.id.fab);
