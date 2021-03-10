@@ -9,17 +9,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private FloatingActionButton fab;
-    private ArrayList<String> users;
+//    private ArrayList<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +32,17 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycled_view);
 
-        users = new ArrayList<>();
+//        users = new ArrayList<>();
+//
+//        // Add 100 strings into recycler list
+//        for(int i = 0; i < 100; i++) {
+//            User user = new User("Tony", "Wang", "2894735011@qq.com");
+//            users.add(user);
+//        }
 
-        // Add 100 strings into recycler list
-        for(int i = 0; i < 100; i++) {
-            users.add("Android #" + i);
-        }
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "production").allowMainThreadQueries().build();
+
+        List<User> users = db.userDao().getAllUsers();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);  // improve performance

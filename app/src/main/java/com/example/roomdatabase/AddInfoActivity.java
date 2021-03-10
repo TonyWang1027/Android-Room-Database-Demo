@@ -1,5 +1,6 @@
 package com.example.roomdatabase;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 public class AddInfoActivity extends AppCompatActivity {
 
@@ -28,6 +30,8 @@ public class AddInfoActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         button = findViewById(R.id.button);
 
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "production").allowMainThreadQueries().build();
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,6 +40,11 @@ public class AddInfoActivity extends AppCompatActivity {
                 String emailString = email.getText().toString();
 
                 Log.d(TAG, "Message: " + firstNameString + " " + lastNameString + " " + emailString);
+
+                User user = new User(firstNameString, lastNameString, emailString);
+                db.userDao().insertAll(user);
+
+                startActivity(new Intent(AddInfoActivity.this, MainActivity.class));
             }
         });
     }
