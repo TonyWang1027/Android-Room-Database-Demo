@@ -31,8 +31,8 @@ public class UserDatabaseManager {
     }
 
     // Insert
-    public static synchronized void addUser(Context context, User user) {
-        getInstance(context).userDao().insert(user);
+    public static synchronized long addUser(Context context, User user) {
+        return getInstance(context).userDao().insert(user);
     }
 
     // Get User
@@ -43,6 +43,11 @@ public class UserDatabaseManager {
     // Delete
     public static synchronized void deleteUser(Context context, User user) {
         getInstance(context).userDao().delete(user);
+    }
+
+    // Delete all rows
+    public static synchronized void deleteAllRows(Context context) {
+        getInstance(context).userDao().deleteAllRows();
     }
 
     // Update

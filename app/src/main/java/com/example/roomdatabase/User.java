@@ -6,56 +6,56 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity
+@Entity(tableName = "userinfo")
 public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;  // the type of primary key in Room DB is long
 
     @ColumnInfo(name = "first_name")
-    private String firstName;
+    private String mFirstName;
 
     @ColumnInfo(name = "last_name")
-    private String lastName;
+    private String mLastName;
 
     @ColumnInfo(name = "email")
-    private String email;
+    private String mEmail;
 
     public User(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+        this.mFirstName = firstName;
+        this.mLastName = lastName;
+        this.mEmail = email;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     public String getFirstName() {
-        return firstName;
+        return mFirstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String mFirstName) {
+        this.mFirstName = mFirstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return mLastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String mLastName) {
+        this.mLastName = mLastName;
     }
 
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String mEmail) {
+        this.mEmail = mEmail;
     }
 }

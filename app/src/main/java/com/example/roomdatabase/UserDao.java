@@ -10,13 +10,12 @@ import java.util.List;
 
 @Dao
 public interface UserDao {
-    // Insert query
-    @Insert
-    void insert(User... user);
+
+    String TABLE_NAME = "userinfo";
 
     // Insert query
     @Insert
-    void insert(User user);
+    long insert(User user);
 
     // Delete query
     @Delete
@@ -26,16 +25,20 @@ public interface UserDao {
     @Delete
     void reset(List<User> users);
 
+    // Delete all rows in a table
+    @Query("DELETE FROM " + TABLE_NAME)
+    void deleteAllRows();
+
     // Update query
     @Update
     void update(User user);
 
     // Get User
-    @Query("SELECT * FROM User WHERE first_name = :firstName")
+    @Query("SELECT * FROM userinfo WHERE first_name = :firstName")
     User getUser(String firstName);
 
     // Get list of user
-    @Query("SELECT * FROM user")
+    @Query("SELECT * FROM userinfo")
     List<User> getAll();
 
 }
