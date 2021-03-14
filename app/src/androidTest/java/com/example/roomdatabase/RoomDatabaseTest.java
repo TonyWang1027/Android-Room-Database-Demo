@@ -8,6 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -34,6 +35,8 @@ public class RoomDatabaseTest {
 
     @Test
     public void addNewUserTest() {
+        // Test purpose: Add one entity into database by using "UserDatabaseManager.addUser(context, VALUABLE_NAME)" method
+        //               then, using "UserDatabaseManager.getUser(context, VALUABLE_NAME)" method to get user entity from DB
         clearUpDatabase();
 
         User user = new User("Tony", "Wang", "634599701@qq.com");
@@ -49,7 +52,7 @@ public class RoomDatabaseTest {
     public void deleteUserTest() {
         clearUpDatabase();
 
-        User user = new User("Zhang", "Jack", "634599711@qq.com");
+        User user = new User("Jack", "Zhang", "634599711@qq.com");
         long id = UserDatabaseManager.addUser(appContext, user);
 
         /*
@@ -65,5 +68,43 @@ public class RoomDatabaseTest {
 
         assertEquals(0, users.size());
 
+    }
+
+    @Test
+    public void updateDatabase() {
+        clearUpDatabase();
+
+        User user = new User("Andrew", "Li", "andrew.li@gmail.com");
+        // insert data
+        long id = UserDatabaseManager.addUser(appContext, user);
+        user.setId(id);
+
+        // update data
+        user.setEmail("andrew.li.2021@gmail.com");
+        user.setLastName("Huang");
+        UserDatabaseManager.updateUser(appContext, user);
+
+        User user_back = UserDatabaseManager.getUser(appContext, "Andrew");
+
+        assertEquals("andrew.li.2021@gmail.com", user_back.getEmail());
+        assertEquals("Huang", user_back.getLastName());
+    }
+
+    public void deleteAllUsers() {
+        clearUpDatabase();
+
+        List<User> users = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            users.add(new User("FirstName" + i, "LastName" + i, "email" + 1 + "@gmail.com"));
+            long id = UserDatabaseManager.addUser(appContext, users.get(i));
+            users.get(i).setId(id);
+        }
+
+        UserDatabaseManager.getInstance(appContext).userDao().reset(users);
+
+        List<User> users_back = UserDatabaseManager.getUsers(appContext);
+
+        assertEquals(0, users_back.size());
     }
 }
