@@ -41,7 +41,7 @@ public class RoomDatabaseTest {
 
         User user = new User("Tony", "Wang", "634599701@qq.com");
         long id = UserDatabaseManager.addUser(appContext, user);
-        user.setId(id);
+        user.setUserId(id);
 
         User user_back = UserDatabaseManager.getUser(appContext, "Tony");
 
@@ -61,7 +61,7 @@ public class RoomDatabaseTest {
          * But, attribute "id" in "user" object is not set, we need to set "id" manually, otherwise, delete function does not know which row we want to delete,
          * because Room uses the PrimaryKey to match passed entity instances to rows in the database.
          */
-        user.setId(id);
+        user.setUserId(id);
         UserDatabaseManager.deleteUser(appContext, user);
 
         List<User> users = UserDatabaseManager.getUsers(appContext);
@@ -77,7 +77,7 @@ public class RoomDatabaseTest {
         User user = new User("Andrew", "Li", "andrew.li@gmail.com");
         // insert data
         long id = UserDatabaseManager.addUser(appContext, user);
-        user.setId(id);
+        user.setUserId(id);
 
         // update data
         user.setEmail("andrew.li.2021@gmail.com");
@@ -98,7 +98,7 @@ public class RoomDatabaseTest {
         for (int i = 0; i < 10; i++) {
             users.add(new User("FirstName" + i, "LastName" + i, "email" + 1 + "@gmail.com"));
             long id = UserDatabaseManager.addUser(appContext, users.get(i));
-            users.get(i).setId(id);
+            users.get(i).setUserId(id);
         }
 
         UserDatabaseManager.getInstance(appContext).userDao().reset(users);
@@ -106,5 +106,7 @@ public class RoomDatabaseTest {
         List<User> users_back = UserDatabaseManager.getUsers(appContext);
 
         assertEquals(0, users_back.size());
+
+        UserDatabaseManager.deleteAllRows(appContext);
     }
 }

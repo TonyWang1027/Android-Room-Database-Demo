@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;  // the type of primary key in Room DB is long
+    private long userId;  // the type of primary key in Room DB is long
 
     @ColumnInfo(name = "first_name")
     private String mFirstName;
@@ -27,12 +27,12 @@ public class User implements Serializable {
         this.mEmail = email;
     }
 
-    public long getId() {
-        return id;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {
