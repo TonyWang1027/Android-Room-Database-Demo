@@ -21,10 +21,14 @@ public class User implements Serializable {
     @ColumnInfo(name = "email")
     private String mEmail;
 
-    public User(String firstName, String lastName, String email) {
+    @ColumnInfo(name = "book_id")
+    private long bookId;
+
+    public User(String firstName, String lastName, String email, long bookId) {
         this.mFirstName = firstName;
         this.mLastName = lastName;
         this.mEmail = email;
+        this.bookId = bookId;
     }
 
     public long getUserId() {
@@ -57,5 +61,13 @@ public class User implements Serializable {
 
     public void setEmail(String mEmail) {
         this.mEmail = mEmail;
+    }
+
+    public long getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(long bookId) {
+        this.bookId = bookId;
     }
 }

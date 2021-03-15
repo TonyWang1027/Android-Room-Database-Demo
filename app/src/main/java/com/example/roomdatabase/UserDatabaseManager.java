@@ -32,7 +32,12 @@ public class UserDatabaseManager {
 
     // Insert
     public static synchronized long addUser(Context context, User user) {
-        return getInstance(context).userDao().insert(user);
+        return getInstance(context).userDao().insertUser(user);
+    }
+
+    // Insert
+    public static synchronized long addBook(Context context, Book book) {
+        return getInstance(context).userDao().insertBook(book);
     }
 
     // Get User
@@ -47,7 +52,8 @@ public class UserDatabaseManager {
 
     // Delete all rows
     public static synchronized void deleteAllRows(Context context) {
-        getInstance(context).userDao().deleteAllRows();
+        getInstance(context).userDao().deleteAllUserRows();
+        getInstance(context).userDao().deleteAllBookRows();
     }
 
     // Update
@@ -58,5 +64,10 @@ public class UserDatabaseManager {
     // Get list of users
     public static synchronized List<User> getUsers(Context context) {
         return getInstance(context).userDao().getAll();
+    }
+
+    // List<UserWithBooks> getUserWithBooks(long id);
+    public static synchronized List<UserWithBooks> getUserWithBooks(Context context, String firstName) {
+        return getInstance(context).userDao().getUserWithBooksByName(firstName);
     }
 }

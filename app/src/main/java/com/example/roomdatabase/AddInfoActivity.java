@@ -39,8 +39,10 @@ public class AddInfoActivity extends AppCompatActivity {
 
                 // Log.d(TAG, "Message: " + firstNameString + " " + lastNameString + " " + emailString);
 
-                User user = new User(firstNameString, lastNameString, emailString);
-                db.userDao().insert(user);  // insert new user into database
+                User user = new User(firstNameString, lastNameString, emailString, 1);
+                db.userDao().insertUser(user);  // insert new user into database
+                Book book = new Book(1, "WithHe", "2010");
+                db.userDao().insertBook(book);
 
                 startActivity(new Intent(AddInfoActivity.this, MainActivity.class));
             }

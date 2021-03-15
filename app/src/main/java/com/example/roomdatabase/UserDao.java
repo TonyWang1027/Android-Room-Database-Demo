@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
@@ -13,9 +14,12 @@ public interface UserDao {
 
     String TABLE_NAME = "userinfo";
 
-    // Insert query
+    // Insert User query
     @Insert
-    long insert(User user);
+    long insertUser(User user);
+
+    @Insert
+    long insertBook(Book book);
 
     // Delete query
     @Delete
@@ -27,11 +31,20 @@ public interface UserDao {
 
     // Delete all rows in a table
     @Query("DELETE FROM " + TABLE_NAME)
-    void deleteAllRows();
+    void deleteAllUserRows();
+
+    // Delete all rows in a table
+    @Query("DELETE FROM bookInfo")
+    void deleteAllBookRows();
 
     // Update query
     @Update
     void update(User user);
+
+    // Get list of books
+    @Transaction
+    @Query("SELECT * FROM " + TABLE_NAME + " WHERE first_name = :firstName")
+    List<UserWithBooks> getUserWithBooksByName(String firstName);
 
     // Get User
     @Query("SELECT * FROM userinfo WHERE first_name = :firstName")

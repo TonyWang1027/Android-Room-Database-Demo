@@ -39,7 +39,7 @@ public class RoomDatabaseTest {
         //               then, using "UserDatabaseManager.getUser(context, VALUABLE_NAME)" method to get user entity from DB
         clearUpDatabase();
 
-        User user = new User("Tony", "Wang", "634599701@qq.com");
+        User user = new User("Tony", "Wang", "634599701@qq.com", 1);
         long id = UserDatabaseManager.addUser(appContext, user);
         user.setUserId(id);
 
@@ -52,7 +52,7 @@ public class RoomDatabaseTest {
     public void deleteUserTest() {
         clearUpDatabase();
 
-        User user = new User("Jack", "Zhang", "634599711@qq.com");
+        User user = new User("Jack", "Zhang", "634599711@qq.com",1);
         long id = UserDatabaseManager.addUser(appContext, user);
 
         /*
@@ -74,7 +74,7 @@ public class RoomDatabaseTest {
     public void updateDatabase() {
         clearUpDatabase();
 
-        User user = new User("Andrew", "Li", "andrew.li@gmail.com");
+        User user = new User("Andrew", "Li", "andrew.li@gmail.com", 1);
         // insert data
         long id = UserDatabaseManager.addUser(appContext, user);
         user.setUserId(id);
@@ -90,13 +90,14 @@ public class RoomDatabaseTest {
         assertEquals("Huang", user_back.getLastName());
     }
 
+    @Test
     public void deleteAllUsers() {
         clearUpDatabase();
 
         List<User> users = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            users.add(new User("FirstName" + i, "LastName" + i, "email" + 1 + "@gmail.com"));
+            users.add(new User("FirstName" + i, "LastName" + i, "email" + 1 + "@gmail.com", 1));
             long id = UserDatabaseManager.addUser(appContext, users.get(i));
             users.get(i).setUserId(id);
         }
@@ -108,5 +109,26 @@ public class RoomDatabaseTest {
         assertEquals(0, users_back.size());
 
         UserDatabaseManager.deleteAllRows(appContext);
+    }
+
+    @Test
+    public void insertUserWithBooks() {
+        clearUpDatabase();
+
+        User user = new User("Jack", "Huang", "131456478@gmail.com", 1);
+        long userId = UserDatabaseManager.addUser(appContext, user);
+        user.setUserId(userId);
+
+        Book book1 = new Book(1, "WithMe", "2007");
+        long bookId1 = UserDatabaseManager.addBook(appContext, book1);
+        book1.setBookId(bookId1);
+
+        Book book2 = new Book(1, "HeIsGood", "2009");
+        long bookId2 = UserDatabaseManager.addBook(appContext, book2);
+        book2.setBookId(bookId2);
+
+        List<UserWithBooks> userWithBooks = UserDatabaseManager.getUserWithBooks(appContext, "Jack");
+
+        assertEquals("HeIsGood", userWithBooks.get(0).books.get(1).getBookName());
     }
 }

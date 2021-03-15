@@ -5,7 +5,8 @@ import androidx.room.RoomDatabase;
 
 @Database(
         entities = {
-                User.class
+                User.class,
+                Book.class
         },
         version = 1,
         exportSchema = false
