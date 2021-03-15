@@ -42,7 +42,7 @@ public class RoomDatabaseTest {
 
         User user_back = UserDatabaseManager.getUser(appContext, "Tony");
 
-        assertEquals("Tony", user_back.getFirstName());
+        assertEquals("Tony - change for github action test", user_back.getFirstName());
     }
 
     @Test
