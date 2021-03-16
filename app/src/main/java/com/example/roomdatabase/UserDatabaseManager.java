@@ -67,7 +67,7 @@ public class UserDatabaseManager {
     }
 
     // List<UserWithBooks> getUserWithBooks(long id);
-    public static synchronized List<UserWithBooks> getUserWithBooks(Context context, String firstName) {
+    public static synchronized UserWithBooks getUserWithBooks(Context context, String firstName) {
         return getInstance(context).userDao().getUserWithBooksByName(firstName);
     }
 }

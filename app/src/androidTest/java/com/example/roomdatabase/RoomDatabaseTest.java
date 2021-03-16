@@ -127,8 +127,8 @@ public class RoomDatabaseTest {
         long bookId2 = UserDatabaseManager.addBook(appContext, book2);
         book2.setBookId(bookId2);
 
-        List<UserWithBooks> userWithBooks = UserDatabaseManager.getUserWithBooks(appContext, "Jack");
+        UserWithBooks userWithBooks = UserDatabaseManager.getUserWithBooks(appContext, "Jack");
 
-        assertEquals("HeIsGood", userWithBooks.get(0).books.get(1).getBookName());
+        assertEquals("HeIsGood", userWithBooks.books.get(1).getBookName());
     }
 }

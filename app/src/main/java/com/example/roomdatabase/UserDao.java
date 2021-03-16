@@ -44,7 +44,7 @@ public interface UserDao {
     // Get list of books
     @Transaction
     @Query("SELECT * FROM " + TABLE_NAME + " WHERE first_name = :firstName")
-    List<UserWithBooks> getUserWithBooksByName(String firstName);
+    UserWithBooks getUserWithBooksByName(String firstName);
 
     // Get User
     @Query("SELECT * FROM userinfo WHERE first_name = :firstName")
