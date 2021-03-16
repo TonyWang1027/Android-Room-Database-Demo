@@ -36,20 +36,20 @@ public class RoomDatabaseTest {
     public void addNewUserTest() {
         clearUpDatabase();
 
-        User user = new User("Tony", "Wang", "634599701@qq.com");
+        User user = new User("FirstName", "LastName", "00000000@qq.com");
         long id = UserDatabaseManager.addUser(appContext, user);
         user.setId(id);
 
         User user_back = UserDatabaseManager.getUser(appContext, "Tony");
 
-        assertEquals("Tony - change for github action test", user_back.getFirstName());
+        assertEquals("FirstName", user_back.getFirstName());
     }
 
     @Test
     public void deleteUserTest() {
         clearUpDatabase();
 
-        User user = new User("Zhang", "Jack", "634599711@qq.com");
+        User user = new User("FirstName", "LastName", "00000000@qq.com");
         long id = UserDatabaseManager.addUser(appContext, user);
 
         /*
