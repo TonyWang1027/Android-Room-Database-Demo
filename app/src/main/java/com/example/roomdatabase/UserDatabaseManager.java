@@ -21,8 +21,8 @@ public class UserDatabaseManager {
         if (database == null) {
             // Setup a Room database
             database = Room.databaseBuilder(context, AppDatabase.class, DATABASE_NAME)
+                    .addMigrations(AppDatabase.MIGRATION_1_2)
                     .allowMainThreadQueries()  // allow query execute in main UI thread
-                    .fallbackToDestructiveMigration()
                     .build();  // Creates the databases and initializes it
         }
 

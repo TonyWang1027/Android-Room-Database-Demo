@@ -131,4 +131,25 @@ public class RoomDatabaseTest {
 
         assertEquals("HeIsGood", userWithBooks.books.get(1).getBookName());
     }
+
+    @Test
+    public void getListOfBooksNewMethod() {
+        clearUpDatabase();
+
+        User user = new User("Jack", "Huang", "131456478@gmail.com", 1);
+        long userId = UserDatabaseManager.addUser(appContext, user);
+        user.setUserId(userId);
+
+        Book book1 = new Book(1, "WithMe", "2007");
+        long bookId1 = UserDatabaseManager.addBook(appContext, book1);
+        book1.setBookId(bookId1);
+
+        Book book2 = new Book(1, "HeIsGood", "2009");
+        long bookId2 = UserDatabaseManager.addBook(appContext, book2);
+        book2.setBookId(bookId2);
+
+        List<Book> ListOfBooks = UserDatabaseManager.getInstance(appContext).userDao().getAllBooksForAllUsers("Jack");
+
+        assertEquals("WithMe", ListOfBooks.get(0).getBookName());
+    }
 }

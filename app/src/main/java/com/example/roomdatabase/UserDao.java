@@ -46,6 +46,15 @@ public interface UserDao {
     @Query("SELECT * FROM " + TABLE_NAME + " WHERE first_name = :firstName")
     UserWithBooks getUserWithBooksByName(String firstName);
 
+    String queryString = "SELECT bookInfo.bookId, bookInfo.user_fkId, bookInfo.book_name, bookInfo.year_of_book " +
+            "FROM userinfo " +
+            "INNER JOIN bookInfo ON userInfo.book_id=bookInfo.user_fkId " +
+            "WHERE first_name = :firstName " +
+            "ORDER BY bookInfo.year_of_book";
+
+    @Query(queryString)
+    List<Book> getAllBooksForAllUsers(String firstName);
+
     // Get User
     @Query("SELECT * FROM userinfo WHERE first_name = :firstName")
     User getUser(String firstName);

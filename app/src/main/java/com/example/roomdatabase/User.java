@@ -24,6 +24,9 @@ public class User implements Serializable {
     @ColumnInfo(name = "book_id")
     private long bookId;
 
+    @ColumnInfo(name = "birthday")
+    private String mBirthday;
+
     public User(String firstName, String lastName, String email, long bookId) {
         this.mFirstName = firstName;
         this.mLastName = lastName;
@@ -69,5 +72,13 @@ public class User implements Serializable {
 
     public void setBookId(long bookId) {
         this.bookId = bookId;
+    }
+
+    public String getBirthday() {
+        return mBirthday;
+    }
+
+    public void setBirthday(String birthday) {
+        mBirthday = birthday;
     }
 }
